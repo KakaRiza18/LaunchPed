@@ -15,7 +15,7 @@ function ProjectGrid({ projects, onViewProject }) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-name="project-grid" data-file="components/ProjectGrid.js">
         {projects.map((project) => (
-          <ProjectCard key={project.objectId} project={project} onViewProject={onViewProject} />
+          <ProjectCard key={project.id} project={project} onViewProject={onViewProject} />
         ))}
       </div>
     );
