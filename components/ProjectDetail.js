@@ -1,19 +1,18 @@
-import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 function ProjectDetail({ project, user, onBack }) {
   try {
-    const [investmentAmount, setInvestmentAmount] = React.useState('');
+    const [investmentAmount, setInvestmentAmount] = React.useState("");
     const [showInvestModal, setShowInvestModal] = React.useState(false);
     const [investing, setInvesting] = React.useState(false);
 
     const handleInvest = async () => {
       if (!user) {
-        alert('Please sign in to invest');
+        alert("Please sign in to invest");
         return;
       }
 
       const amount = parseInt(investmentAmount);
       if (!amount || amount <= 0) {
-        alert('Please enter a valid investment amount');
+        alert("Please enter a valid investment amount");
         return;
       }
 
@@ -22,20 +21,17 @@ function ProjectDetail({ project, user, onBack }) {
         const newFunding = project.current_funding + amount;
 
         // Gunakan Supabase langsung untuk update project
-        const { error } = await supabase
-          .from('projects')
-          .update({ current_funding: newFunding })
-          .eq('id', project.id);
+        const { error } = await supabase.from("projects").update({ current_funding: newFunding }).eq("id", project.id);
 
         if (error) throw error;
 
-        alert('Investment successful! Thank you for supporting this project.');
+        alert("Investment successful! Thank you for supporting this project.");
         setShowInvestModal(false);
-        setInvestmentAmount('');
+        setInvestmentAmount("");
         window.location.reload(); // Atau kamu bisa pakai fetch ulang project data
       } catch (error) {
         console.error(error);
-        alert('Investment failed. Please try again.');
+        alert("Investment failed. Please try again.");
       } finally {
         setInvesting(false);
       }
@@ -45,32 +41,21 @@ function ProjectDetail({ project, user, onBack }) {
 
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-name="project-detail" data-file="components/ProjectDetail.js">
-        <button 
-          onClick={onBack}
-          className="flex items-center text-blue-600 hover:text-blue-700 mb-6"
-        >
+        <button onClick={onBack} className="flex items-center text-blue-600 hover:text-blue-700 mb-6">
           <div className="icon-arrow-left mr-2"></div>
           Back to Projects
         </button>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {project.is_premium && (
-            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-medium px-4 py-2">
-              ⭐ Premium Project
-            </div>
-          )}
+          {project.is_premium && <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-medium px-4 py-2">⭐ Premium Project</div>}
 
           <div className="p-8">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">{project.title}</h1>
                 <div className="flex items-center space-x-4">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                    {project.category}
-                  </span>
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                    {project.status}
-                  </span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">{project.category}</span>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">{project.status}</span>
                 </div>
               </div>
             </div>
@@ -104,33 +89,23 @@ function ProjectDetail({ project, user, onBack }) {
                       <span className="font-medium">{Math.round(fundingPercentage)}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className="bg-blue-600 h-3 rounded-full transition-all"
-                        style={{ width: `${Math.min(fundingPercentage, 100)}%` }}
-                      ></div>
+                      <div className="bg-blue-600 h-3 rounded-full transition-all" style={{ width: `${Math.min(fundingPercentage, 100)}%` }}></div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div>
                       <span className="text-gray-600 text-sm">Raised</span>
-                      <p className="text-xl font-bold text-gray-900">
-                        {formatCurrency(project.current_funding)}
-                      </p>
+                      <p className="text-xl font-bold text-gray-900">{formatCurrency(project.current_funding)}</p>
                     </div>
                     <div>
                       <span className="text-gray-600 text-sm">Goal</span>
-                      <p className="text-xl font-bold text-gray-900">
-                        {formatCurrency(project.funding_goal)}
-                      </p>
+                      <p className="text-xl font-bold text-gray-900">{formatCurrency(project.funding_goal)}</p>
                     </div>
                   </div>
 
-                  {user && user.user_type === 'investor' && project.status === 'Active' && (
-                    <button 
-                      onClick={() => setShowInvestModal(true)}
-                      className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                    >
+                  {user && user.user_type === "investor" && project.status === "Active" && (
+                    <button onClick={() => setShowInvestModal(true)} className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
                       Invest in this Project
                     </button>
                   )}
@@ -155,18 +130,11 @@ function ProjectDetail({ project, user, onBack }) {
                 />
               </div>
               <div className="flex space-x-4">
-                <button
-                  onClick={() => setShowInvestModal(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                >
+                <button onClick={() => setShowInvestModal(false)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
                   Cancel
                 </button>
-                <button
-                  onClick={handleInvest}
-                  disabled={investing}
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {investing ? 'Processing...' : 'Invest'}
+                <button onClick={handleInvest} disabled={investing} className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+                  {investing ? "Processing..." : "Invest"}
                 </button>
               </div>
             </div>
@@ -175,7 +143,7 @@ function ProjectDetail({ project, user, onBack }) {
       </div>
     );
   } catch (error) {
-    console.error('ProjectDetail component error:', error);
+    console.error("ProjectDetail component error:", error);
     return null;
   }
 }

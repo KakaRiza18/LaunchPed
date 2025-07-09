@@ -1,4 +1,3 @@
-import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 function ProjectGrid({ projects, onViewProject }) {
   try {
     if (!projects || projects.length === 0) {
@@ -21,7 +20,7 @@ function ProjectGrid({ projects, onViewProject }) {
       </div>
     );
   } catch (error) {
-    console.error('ProjectGrid component error:', error);
+    console.error("ProjectGrid component error:", error);
     return null;
   }
 }

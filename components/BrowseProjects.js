@@ -1,13 +1,9 @@
-import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 function BrowseProjects({ projects, loading, onViewProject }) {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
-  const [sortBy, setSortBy] = React.useState('newest');
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = React.useState("All");
+  const [sortBy, setSortBy] = React.useState("newest");
 
-  const categories = [
-    'All', 'Technology', 'Healthcare', 'Education', 'Finance',
-    'Environment', 'Social Impact', 'E-commerce', 'Gaming'
-  ];
+  const categories = ["All", "Technology", "Healthcare", "Education", "Finance", "Environment", "Social Impact", "E-commerce", "Gaming"];
 
   const handleSearchChange = React.useCallback((e) => {
     setSearchTerm(e.target.value);
@@ -26,10 +22,9 @@ function BrowseProjects({ projects, loading, onViewProject }) {
 
     return projects
       .filter(({ objectData }) => {
-        const matchesSearch = objectData.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              objectData.description.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = objectData.title.toLowerCase().includes(searchTerm.toLowerCase()) || objectData.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-        const matchesCategory = selectedCategory === 'All' || objectData.category === selectedCategory;
+        const matchesCategory = selectedCategory === "All" || objectData.category === selectedCategory;
 
         return matchesSearch && matchesCategory;
       })
@@ -38,9 +33,9 @@ function BrowseProjects({ projects, loading, onViewProject }) {
         const dataB = b.objectData;
 
         switch (sortBy) {
-          case 'funding':
+          case "funding":
             return dataB.current_funding - dataA.current_funding;
-          case 'goal':
+          case "goal":
             return dataB.funding_goal - dataA.funding_goal;
           default:
             return new Date(b.createdAt) - new Date(a.createdAt);
@@ -52,34 +47,20 @@ function BrowseProjects({ projects, loading, onViewProject }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-name="browse-projects" data-file="components/BrowseProjects.js">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Browse Student Projects</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Discover innovative projects from talented student developers seeking funding
-        </p>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover innovative projects from talented student developers seeking funding</p>
       </div>
 
       <div className="mb-8 space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
-          <input
-            type="text"
-            placeholder="Search projects..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          />
-          <select
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
-            {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
+          <input type="text" placeholder="Search projects..." value={searchTerm} onChange={handleSearchChange} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+          <select value={selectedCategory} onChange={handleCategoryChange} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </select>
-          <select
-            value={sortBy}
-            onChange={handleSortChange}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
+          <select value={sortBy} onChange={handleSortChange} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
             <option value="newest">Newest</option>
             <option value="funding">Most Funded</option>
             <option value="goal">Highest Goal</option>
