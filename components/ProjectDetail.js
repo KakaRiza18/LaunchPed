@@ -1,3 +1,4 @@
+import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
 function ProjectDetail({ project, user, onBack }) {
   try {
     const [investmentAmount, setInvestmentAmount] = React.useState('');

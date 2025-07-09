@@ -1,3 +1,4 @@
+import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
 function BrowseProjects({ projects, loading, onViewProject }) {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('All');

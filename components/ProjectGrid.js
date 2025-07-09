@@ -1,3 +1,4 @@
+import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
 function ProjectGrid({ projects, onViewProject }) {
   try {
     if (!projects || projects.length === 0) {

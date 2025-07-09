@@ -1,3 +1,4 @@
+import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
 function ProjectCard({ project, onViewProject }) {
   try {
     const fundingPercentage = (project.current_funding / project.funding_goal) * 100;
