@@ -1,4 +1,4 @@
-import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
+import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 const handleSubmit = async (e) => {
   e.preventDefault();
 

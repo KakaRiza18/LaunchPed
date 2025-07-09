@@ -1,4 +1,4 @@
-import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
+import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 function ProjectGrid({ projects, onViewProject }) {
   try {
     if (!projects || projects.length === 0) {

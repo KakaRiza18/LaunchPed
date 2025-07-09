@@ -1,4 +1,4 @@
-import { supabase } from 'C:\Users\asus\Downloads\LaunchPed\supabaseClient.js';
+import { supabase } from '../supabaseClient'; // atau './supabaseClient' tergantung lokasi file
 function AuthModal({ onClose, onLogin }) {
   const [isLogin, setIsLogin] = React.useState(true);
   const [formData, setFormData] = React.useState({
