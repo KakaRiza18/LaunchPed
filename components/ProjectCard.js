@@ -1,3 +1,4 @@
+<script src="supabase-init.js"></script>
 function ProjectCard({ project, onViewProject }) {
   try {
     const fundingPercentage = (project.current_funding / project.funding_goal) * 100;

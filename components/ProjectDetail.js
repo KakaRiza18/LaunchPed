@@ -1,3 +1,4 @@
+<script src="supabase-init.js"></script>
 function ProjectDetail({ project, user, onBack }) {
   try {
     const [investmentAmount, setInvestmentAmount] = React.useState("");

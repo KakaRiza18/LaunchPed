@@ -1,3 +1,4 @@
+<script src="supabase-init.js"></script>
 function ProjectGrid({ projects, onViewProject }) {
   try {
     if (!projects || projects.length === 0) {

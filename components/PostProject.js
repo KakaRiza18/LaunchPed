@@ -1,3 +1,4 @@
+<script src="supabase-init.js"></script>
 const handleSubmit = async (e) => {
   e.preventDefault();
 

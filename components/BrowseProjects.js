@@ -1,3 +1,4 @@
+<script src="supabase-init.js"></script>
 function BrowseProjects({ projects, loading, onViewProject }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
