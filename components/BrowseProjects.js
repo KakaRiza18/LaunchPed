@@ -1,4 +1,4 @@
-<script src="supabase-init.js"></script>
+<script src="supabase-init.js"></script>;
 function BrowseProjects({ projects, loading, onViewProject }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("All");
@@ -20,26 +20,22 @@ function BrowseProjects({ projects, loading, onViewProject }) {
 
   const filteredProjects = React.useMemo(() => {
     if (!projects) return [];
-
     return projects
-      .filter(({ objectData }) => {
-        const matchesSearch = objectData.title.toLowerCase().includes(searchTerm.toLowerCase()) || objectData.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-        const matchesCategory = selectedCategory === "All" || objectData.category === selectedCategory;
-
+      .filter((project) => {
+        // Pastikan project punya title dan description
+        if (!project.title || !project.description) return false;
+        const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) || project.description.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
         return matchesSearch && matchesCategory;
       })
       .sort((a, b) => {
-        const dataA = a.objectData;
-        const dataB = b.objectData;
-
         switch (sortBy) {
           case "funding":
-            return dataB.current_funding - dataA.current_funding;
+            return b.current_funding - a.current_funding;
           case "goal":
-            return dataB.funding_goal - dataA.funding_goal;
+            return b.funding_goal - a.funding_goal;
           default:
-            return new Date(b.createdAt) - new Date(a.createdAt);
+            return new Date(b.created_at) - new Date(a.created_at);
         }
       });
   }, [projects, searchTerm, selectedCategory, sortBy]);
